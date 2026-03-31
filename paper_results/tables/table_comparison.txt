@@ -1,0 +1,7 @@
+Method                             Params    Fat Acc    Emo Acc      FPS
+----------------------------------------------------------------------
+VGG-16                            138.36M         --         --       --
+ResNet-50                          25.56M         --         --       --
+MobileNetV2                         3.50M         --         --       --
+EfficientNet-B0                     5.30M         --         --       --
+GLA-FatigueNet (Ours)               4.82M     0.4160     0.1580     18.0

@@ -1,0 +1,15 @@
+EMOTION RECOGNITION
+=======================================================
+              precision    recall  f1-score   support
+
+       angry       0.00      0.00      0.00        75
+     disgust       0.00      0.00      0.00        64
+        fear       0.00      0.00      0.00        75
+       happy       0.00      0.00      0.00        64
+         sad       0.00      0.00      0.00        69
+    surprise       0.16      1.00      0.27        79
+     neutral       0.00      0.00      0.00        74
+
+    accuracy                           0.16       500
+   macro avg       0.02      0.14      0.04       500
+weighted avg       0.02      0.16      0.04       500

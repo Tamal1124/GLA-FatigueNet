@@ -1,0 +1,62 @@
+2026-03-31 20:06:49 | INFO | TensorBoard logging to: ./results/logs\tensorboard\GLA-FatigueNet
+2026-03-31 20:06:49 | INFO | ============================================================
+2026-03-31 20:06:49 | INFO |   GLA-FatigueNet Training
+2026-03-31 20:06:49 | INFO |   Device: cpu
+2026-03-31 20:06:49 | INFO | ============================================================
+2026-03-31 20:06:49 | INFO | Loading datasets...
+2026-03-31 20:10:40 | INFO | TensorBoard logging to: ./results/logs\tensorboard\GLA-FatigueNet
+2026-03-31 20:10:40 | INFO | ============================================================
+2026-03-31 20:10:40 | INFO |   GLA-FatigueNet Training
+2026-03-31 20:10:40 | INFO |   Device: cpu
+2026-03-31 20:10:40 | INFO | ============================================================
+2026-03-31 20:10:40 | INFO | Loading datasets...
+2026-03-31 20:10:40 | INFO | Train: 500 | Val: 500 | Test: 500
+2026-03-31 20:10:40 | INFO | Building model...
+2026-03-31 20:10:41 | INFO | Total Parameters: 4,823,196
+2026-03-31 20:10:41 | INFO | Trainable Parameters: 4,823,196
+2026-03-31 20:10:41 | INFO | Non-trainable Parameters: 0
+2026-03-31 20:10:41 | INFO | Model size: 4.82M total, 4.82M trainable
+2026-03-31 20:10:43 | INFO | *** SMOKE TEST MODE: 3 epochs ***
+2026-03-31 20:10:43 | INFO | Starting training for 3 epochs on cpu
+2026-03-31 20:12:02 | INFO | Epoch [1] | Train Loss: 2.2836 | Val Loss: 2.0900 | Train Fatigue Acc: 0.4188 | Val Fatigue Acc: 0.4460 | Train Emotion Acc: 0.1521 | Val Emotion Acc: 0.1240 | LR: 0.001000
+2026-03-31 20:13:20 | INFO | Epoch [2] | Train Loss: 2.2479 | Val Loss: 2.0917 | Train Fatigue Acc: 0.3833 | Val Fatigue Acc: 0.4220 | Train Emotion Acc: 0.1646 | Val Emotion Acc: 0.1480 | LR: 0.000976
+2026-03-31 20:14:39 | INFO | Epoch [3] | Train Loss: 2.2671 | Val Loss: 2.1498 | Train Fatigue Acc: 0.3771 | Val Fatigue Acc: 0.4220 | Train Emotion Acc: 0.1562 | Val Emotion Acc: 0.1480 | LR: 0.000905
+2026-03-31 20:14:39 | INFO | Training complete in 3.9 min. Best val loss: 2.0900, Best val acc: 0.4460
+2026-03-31 20:14:39 | INFO | Training history saved to ./results/logs\GLA-FatigueNet_metrics.json
+2026-03-31 20:14:41 | INFO | 
+Running final evaluation on test set...
+2026-03-31 20:14:55 | INFO | 
+============================================================
+2026-03-31 20:14:55 | INFO | FINAL TEST RESULTS
+2026-03-31 20:14:55 | INFO | ============================================================
+2026-03-31 20:14:55 | INFO | Fatigue Accuracy: 0.4360
+2026-03-31 20:14:55 | INFO | Fatigue F1:       0.2648
+2026-03-31 20:14:55 | INFO | Emotion Accuracy: 0.1280
+2026-03-31 20:14:55 | INFO | Emotion F1:       0.0290
+2026-03-31 20:14:55 | INFO | 
+Fatigue Report:
+              precision    recall  f1-score   support
+
+       alert       0.44      1.00      0.61       218
+      drowsy       0.00      0.00      0.00        74
+    fatigued       0.00      0.00      0.00       208
+
+    accuracy                           0.44       500
+   macro avg       0.15      0.33      0.20       500
+weighted avg       0.19      0.44      0.26       500
+
+2026-03-31 20:14:55 | INFO | Emotion Report:
+              precision    recall  f1-score   support
+
+       angry       0.00      0.00      0.00        75
+     disgust       0.00      0.00      0.00        64
+        fear       0.00      0.00      0.00        75
+       happy       0.13      1.00      0.23        64
+         sad       0.00      0.00      0.00        69
+    surprise       0.00      0.00      0.00        79
+     neutral       0.00      0.00      0.00        74
+
+    accuracy                           0.13       500
+   macro avg       0.02      0.14      0.03       500
+weighted avg       0.02      0.13      0.03       500
+

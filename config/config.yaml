@@ -1,0 +1,188 @@
+# ============================================================
+# GLA-FatigueNet Configuration
+# ============================================================
+
+# --- Project ---
+project:
+  name: "GLA-FatigueNet"
+  version: "1.0.0"
+  seed: 42
+  device: "cpu"  # "cpu" or "cuda"
+
+# --- Data ---
+data:
+  # Path to your dataset root directory
+  # Expected structure:
+  #   data_root/
+  #     train/
+  #       class_0/ (images)
+  #       class_1/
+  #       ...
+  #     val/
+  #       class_0/
+  #       ...
+  #     test/
+  #       class_0/
+  #       ...
+  data_root: "./datasets/fer2013_images"
+  
+  # For fatigue-specific datasets (NTHU-DDD, YawDD, UTA-RLDD)
+  fatigue_data_root: "./datasets/fatigue"
+  
+  image_size: 224
+  num_workers: 0  # Set to 0 for Windows compatibility
+  pin_memory: false  # False for CPU training
+  
+  # Emotion classes
+  emotion_classes:
+    - "angry"
+    - "disgust"
+    - "fear"
+    - "happy"
+    - "sad"
+    - "surprise"
+    - "neutral"
+  
+  # Fatigue classes
+  fatigue_classes:
+    - "alert"
+    - "drowsy"
+    - "fatigued"
+
+  # Train/Val/Test split ratios (used if no pre-split exists)
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+
+# --- Augmentation ---
+augmentation:
+  horizontal_flip_prob: 0.5
+  rotation_limit: 15
+  brightness_limit: 0.2
+  contrast_limit: 0.2
+  gaussian_noise_var_limit: [10.0, 50.0]
+  cutout_num_holes: 1
+  cutout_max_h_size: 32
+  cutout_max_w_size: 32
+
+# --- Model ---
+model:
+  # Stream 1: Ghost CNN
+  ghost_cnn:
+    channels: [16, 24, 48, 96, 192]
+    ghost_ratio: 2
+    use_se: true
+    se_reduction: 4
+    output_dim: 256
+
+  # Stream 2: Coordinate Attention Transformer
+  cat_transformer:
+    patch_size: 16
+    embed_dim: 192
+    num_heads: 4
+    num_layers: 4
+    mlp_ratio: 4.0
+    dropout: 0.1
+    attn_dropout: 0.1
+    output_dim: 256
+
+  # Stream 3: Geometric Landmark Analysis
+  gla:
+    num_landmarks: 468  # MediaPipe: 468, dlib: 68
+    geometric_features: 15  # EAR_L, EAR_R, MAR, head_pitch, head_yaw, head_roll, etc.
+    hidden_dim: 64
+    output_dim: 128
+    dropout: 0.3
+
+  # Fusion
+  fusion:
+    method: "adaptive_gated"  # "adaptive_gated", "concat", "attention"
+    fused_dim: 512
+    dropout: 0.3
+
+  # Task Heads
+  fatigue_head:
+    hidden_dims: [256, 128]
+    num_classes: 3
+    dropout: 0.4
+
+  emotion_head:
+    hidden_dims: [256, 128]
+    num_classes: 7
+    dropout: 0.4
+
+# --- Training ---
+training:
+  batch_size: 32
+  epochs: 100
+  
+  # Optimizer
+  optimizer:
+    type: "adamw"
+    lr: 0.001
+    weight_decay: 0.0001
+    betas: [0.9, 0.999]
+
+  # Scheduler
+  scheduler:
+    type: "cosine_warm_restarts"
+    T_0: 10
+    T_mult: 2
+    eta_min: 0.00001
+
+  # Loss weights
+  loss:
+    fatigue_weight: 1.0
+    emotion_weight: 0.8
+    consistency_weight: 0.2
+    focal_gamma: 2.0
+    label_smoothing: 0.1
+
+  # Early stopping
+  early_stopping:
+    patience: 15
+    min_delta: 0.001
+    monitor: "val_loss"
+
+  # Checkpointing
+  checkpoint:
+    save_dir: "./results/models"
+    save_best: true
+    save_every: 10
+
+  # Logging
+  logging:
+    log_dir: "./results/logs"
+    plot_dir: "./results/plots"
+    log_interval: 10  # Log every N batches
+    use_tensorboard: true
+
+# --- Evaluation ---
+evaluation:
+  batch_size: 64
+  generate_confusion_matrix: true
+  generate_classification_report: true
+  generate_tsne: true
+  generate_gradcam: true
+
+# --- Inference ---
+inference:
+  checkpoint_path: "./results/models/best_model.pth"
+  confidence_threshold: 0.5
+  webcam_id: 0
+  display_landmarks: true
+
+# --- Fatigue Label Mapping (from emotions) ---
+fatigue_mapping:
+  alert:
+    emotions: ["happy", "surprise"]
+    ear_threshold_min: 0.25
+  drowsy:
+    emotions: ["neutral", "sad"]
+    ear_threshold_min: 0.18
+    ear_threshold_max: 0.25
+    mar_threshold: 0.5
+  fatigued:
+    emotions: ["sad", "fear", "disgust"]
+    ear_threshold_max: 0.18
+    perclos_threshold: 0.4

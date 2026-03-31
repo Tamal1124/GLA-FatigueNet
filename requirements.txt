@@ -1,0 +1,34 @@
+# GLA-FatigueNet Dependencies
+# Core
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0
+pandas>=2.0.0
+Pillow>=9.5.0
+
+# Face Detection & Landmarks
+mediapipe>=0.10.0
+opencv-python>=4.8.0
+dlib>=19.24.0
+
+# Data Augmentation
+albumentations>=1.3.0
+
+# Metrics & Visualization
+scikit-learn>=1.3.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Configuration
+PyYAML>=6.0
+
+# Progress & Logging
+tqdm>=4.65.0
+tensorboard>=2.13.0
+
+# Model Analysis
+thop>=0.1.1
+ptflops>=0.7
+
+# Optional: Real-time demo
+streamlit>=1.25.0

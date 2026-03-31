@@ -1,0 +1,2 @@
+Fatigue: Acc=0.4160, F1=0.2444
+Emotion: Acc=0.1580, F1=0.0431

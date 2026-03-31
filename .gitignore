@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Model checkpoints & results (large files)
+results/models/*.pth
+results/logs/tensorboard/
+*.pkl
+
+# Datasets (too large for git)
+datasets/
+
+# Temporary files
+*.tmp
+*.bak
+gen_remaining.py
+gen_tsne.py
+generate_paper_outputs.py
